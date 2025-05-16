@@ -1,0 +1,322 @@
+\documentclass{scrartcl} % KOMA-Script class for automatic colors
+\usepackage[sexy]{evan} % Load evan.sty with 'sexy' option
+\usepackage{amsmath}    % For math formatting
+\usepackage{xcolor}     % Ensure xcolor is available (often needed)
+% Add to your preamble (numbertheory.tex):
+\hbadness=10000      % Ignore underfull warnings
+\vfuzz=2pt           % Allow slight vertical overflow
+\title{Number Theory}
+\author{Swarnava Chattaraj}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Introductory Problems} % Colored section (automatically from 'sexy' + scrartcl)
+
+
+\begin{example}
+   Find all solutions of the following equation where it is required that
+$x$, $k$, $y$, $n$ are positive integers with the exponents $k$ and $n$ both $> 1$.
+\[20x^k + 24y^n = 2024.\]
+\end{example}
+
+\begin{example}
+Without approximation prove that the integer part of the the expression 
+\[
+	\sqrt{5} + \sqrt{6} + \cdots + \sqrt{13}
+\]
+is $26$.
+\end{example}
+\begin{proof}[Solution]
+	The overall strategy is to show that the upper bound of the expression is $27$ and the lower bound of the expression is $26$.\\
+	For the upper bound club $\sqrt{5}$ and $\sqrt{13}$ and so on such that everytime you club $\sqrt{a} + \sqrt{b}$, you have $a + b = 18$. Then notice that you can write
+	\[
+		\sqrt{a} + \sqrt{b} = \sqrt{\left(\sqrt{a}+\sqrt{b}\right)^2}
+	\]
+	I leave the rest upon the reader.
+\end{proof}
+\newpage
+\begin{example}[CMI A5, 2018]
+	List in increasing order all positive integers $n \leq 40$ such that n cannot be written in the form $a^2 - b^2$, where $a$ and $b$ are positive integers.
+
+\end{example}
+\begin{proof}[Solution]
+Two observation: Let $k \geq 1$,\\ (i)Then for any $n = 2k+1$, set $a = k + 1$ and $b = k$, observe that\\ $n = a^2 - b^2 = \left(a + b\right)\left(a - b\right) = 2k + 1$.\\
+(ii)Set $a = k + 2$ and $b = k$ and we get $n = 4\left(k + 1\right)$.\\
+So we have proved that any odd number can be written as $a^2 - b^2$, also any number of the form $4k$(except 4) can also be written as $a^2 - b^2$. All that is left to investigate is the case of $4k + )2$. We will take the help of contradiction and use a very nice technique.\\
+\\
+Let it be possible that any number of the form $n = 4k + 2$ can be written as $n = (a + b)(a - b)$. Since $2 \mid n$, it follows that $2 \mid (a + b)$ or $2 \mid (a - b)$.\\
+And here is a instructional part,\\
+Add $\left(a+b\right)$ and $\left(a - b\right)$. What you get is is $2a$. But from our earlier conclusion we know that at least one of the $\left(a + b\right)$, $\left(a - b\right)$ is divisble by 2, but then we find out that their sum is also divisible by 2. So both of the terms must be divisible by 2. What that means is $4 \mid n \Rightarrow n = 4k$ which is a contradiction.\\
+So only the following numbers are in our list \boxed{1, 4, \text{ any number of the form } 4k+2}.
+\end{proof}
+
+\begin{example}[CMI B4, 2017] 
+Let $f : \NN \rightarrow \NN$.
+\[ f(n) = n + \floor{\sqrt{n}}\]
+Show that for every natural number $t$, the following sequence of numbers will contain at lest one perfect square.
+\[
+	t, f(t), f^2(t),f^3(t),\cdots
+\]
+Where $f^k(t) \coloneq \left(f \circ f^k\right)(t), \ \forall\ k\geq2$.
+\end{example}
+\begin{proof}[Solution]
+The easy case, if $m$ itself is a perfect square then we are done.\\
+So now $m = t^2 + k$ where $0 < k < 2t + 1$. So $\floor{\sqrt{t^2+k}} = t$.
+\[
+	f(m) = t^2 + k + t
+\]
+Now notice that if $k = t + 1$, we get $f(m) = \left(t+1\right)^2$. Well that is nice, but lets be a little more structured.
+Consider the following two sets which contains the value of $m$ for different values of $k$.
+\begin{align*}
+	A &= \{m = t^2 + k : 0 < k < t + 1\}\\
+	B &= \{m = t^2 + k : t + 1 \leq k < 2t\}
+\end{align*}
+Let $m \in B \Rightarrow f(m) = (t + 1)^2 + (k - t - 1)$. So two cases from here if $k = t+1$ we are done, otherwise $f(m) \in A$. So if $f(m) \in A$, consider $f^2(m) = (t+1)^2 + (k - t - 1) + \floor{f(m)}$.Now $\floor{f(m)} = t \implies f^2(m) = (t+1)^2 + (k - 1)$.Now again do the entire procedure from the begining but this time set $m = f^2(m)$ and you would get $f^4(m) = (t + 2)^2 + (k - 2)$. So\[ f^{2j}(m) = (t + j)^2\].
+\end{proof}
+
+\begin{example}
+	Let $a_1, a_2,\cdots, a_{100}$ be $100$ integers. Show that there exists integers $1 \leq m \leq n \leq 100$, such that\[\sum\limits_{i = m}^{n} a_i \equiv 0 \pmod{100} \]
+\end{example}
+\newpage
+\section{Introductory Congruence Modulo and Useful Theorems}
+
+\begin{theorem}[Basic Congruence Properties]
+For any integers $a,b,c,d$ and positive integer $m$:
+\begin{enumerate}
+    \item (Reflexivity) $a \equiv a \pmod{m}$
+    \item (Symmetry) $a \equiv b \pmod{m} \implies b \equiv a \pmod{m}$
+    \item (Transitivity) If $a \equiv b \pmod{m}$ and $b \equiv c \pmod{m}$, then $a \equiv c \pmod{m}$
+    \item (Operations) If $a \equiv b \pmod{m}$ and $c \equiv d \pmod{m}$, then:
+    \begin{itemize}
+        \item $a+c \equiv b+d \pmod{m}$
+        \item $a-c \equiv b-d \pmod{m}$
+        \item $ac \equiv bd \pmod{m}$
+    \end{itemize}
+\end{enumerate}
+\end{theorem}
+
+\begin{theorem}[Fermat's Little Theorem]\label{thm:fermatslittletheorem}
+For a prime $p$ and integer $a$ with $p \nmid a$:
+\[ a^{p-1} \equiv 1 \pmod{p} \]
+\end{theorem}
+
+\begin{proof}
+Consider the set $S = \{1, 2, \ldots, p-1\}$, which forms a complete residue system modulo $p$ excluding $0$. Since $\gcd(a, p) = 1$, the set $aS = \{a \cdot 1, a \cdot 2, \ldots, a \cdot (p-1)\}$ is a permutation of $S$ modulo $p$. 
+
+To see why, note that if $a \cdot i \equiv a \cdot j \pmod{p}$ for $1 \leq i < j \leq p-1$, then $p \mid a(i-j)$. Since $\gcd(a, p) = 1$, we must have $p \mid (i-j)$, which is impossible because $0 < j-i < p$. Thus, all elements in $aS$ are distinct modulo $p$.
+
+Now, multiply all elements in $S$ and $aS$:
+\[
+\prod_{k=1}^{p-1} k \equiv \prod_{k=1}^{p-1} (a \cdot k) \equiv a^{p-1} \prod_{k=1}^{p-1} k \pmod{p}.
+\]
+Since $\prod_{k=1}^{p-1} k$ is coprime with $p$, we may cancel it from both sides to obtain:
+\[
+a^{p-1} \equiv 1 \pmod{p}.
+\]
+\end{proof}
+\newpage
+
+\begin{theorem}[Euler's Theorem]\label{thm:eulerstheorem}
+If $\gcd(a,m) = 1$, then:
+\[ a^{\phi(m)} \equiv 1 \pmod{m} \]
+\end{theorem}
+
+\begin{proof}
+Let $\{r_1, r_2, \ldots, r_{\phi(m)}\}$ be a reduced residue system modulo $m$, i.e., a set of integers coprime to $m$ and pairwise incongruent modulo $m$. Since $\gcd(a, m) = 1$, the set $\{a r_1, a r_2, \ldots, a r_{\phi(m)}\}$ is also a reduced residue system modulo $m$. 
+
+To verify this, observe that each $a r_i$ is coprime to $m$ (since both $a$ and $r_i$ are), and if $a r_i \equiv a r_j \pmod{m}$ for $i \neq j$, then $m \mid a(r_i - r_j)$. Because $\gcd(a, m) = 1$, we have $m \mid (r_i - r_j)$, contradicting the distinctness of the $r_i$ modulo $m$.
+
+Now, take the product of all elements in both systems:
+\[
+\prod_{i=1}^{\phi(m)} r_i \equiv \prod_{i=1}^{\phi(m)} (a r_i) \equiv a^{\phi(m)} \prod_{i=1}^{\phi(m)} r_i \pmod{m}.
+\]
+Since $\prod_{i=1}^{\phi(m)} r_i$ is coprime to $m$, we may cancel it to obtain:
+\[
+a^{\phi(m)} \equiv 1 \pmod{m}.
+\]
+\end{proof}
+
+\subsection{Chinese Remainder Theorem}
+
+\begin{theorem}[Chinese Remainder Theorem]\label{thm:chineseremaindertheorem}
+For pairwise coprime moduli $m_1,\ldots,m_k$, the system
+\[ x \equiv a_i \pmod{m_i} \quad (1 \leq i \leq k) \]
+has a unique solution modulo $M = \prod_{i=1}^k m_i$.
+\end{theorem}
+
+\begin{proof}
+We proceed by induction on $k$. For $k = 1$, the statement is trivial. For $k = 2$, we seek $x$ such that:
+\[
+x \equiv a_1 \pmod{m_1}, \quad x \equiv a_2 \pmod{m_2}.
+\]
+Since $\gcd(m_1, m_2) = 1$, there exist integers $u, v$ such that $m_1 u + m_2 v = 1$. Then, the number:
+\[
+x = a_2 m_1 u + a_1 m_2 v
+\]
+satisfies:
+\[
+x \equiv a_1 m_2 v \equiv a_1 (1 - m_1 u) \equiv a_1 \pmod{m_1},
+\]
+and similarly $x \equiv a_2 \pmod{m_2}$. 
+
+For uniqueness, suppose $x$ and $x'$ are solutions. Then $x - x' \equiv 0$ modulo both $m_1$ and $m_2$, hence modulo $m_1 m_2$ by coprimality.
+
+For the general case, assume the theorem holds for $k-1$ congruences. Let $M_{k-1} = \prod_{i=1}^{k-1} m_i$. By the inductive hypothesis, there exists a unique solution $y$ modulo $M_{k-1}$ to the first $k-1$ congruences. Now solve:
+\[
+x \equiv y \pmod{M_{k-1}}, \quad x \equiv a_k \pmod{m_k}.
+\]
+Since $\gcd(M_{k-1}, m_k) = 1$, the base case gives a unique solution modulo $M_{k-1} m_k = M$.
+\end{proof}
+
+\subsection{Quadratic Residues}
+
+\begin{definition}[Legendre Symbol]\label{def:legendresymbol}
+For prime $p$ and integer $a$:
+\[ \left(\frac{a}{p}\right) = \begin{cases}
+0 & \text{if } p \mid a \\
+1 & \text{if } \exists x \text{ s.t. } x^2 \equiv a \pmod{p} \\
+-1 & \text{otherwise}
+\end{cases}\]
+\end{definition}
+
+\begin{theorem}[Euler's Criterion]\label{thm:eulerscriterion}
+For odd prime $p$ and integer $a$:
+\[ \left(\frac{a}{p}\right) \equiv a^{(p-1)/2} \pmod{p} \]
+\end{theorem}
+
+\begin{proof}
+If $p \mid a$, the result is trivial. Otherwise, note that by Fermat's Little Theorem:
+\[
+(a^{(p-1)/2})^2 \equiv a^{p-1} \equiv 1 \pmod{p}.
+\]
+Thus, $a^{(p-1)/2} \equiv \pm 1 \pmod{p}$.
+
+- If $a$ is a quadratic residue, say $a \equiv x^2 \pmod{p}$, then:
+\[
+a^{(p-1)/2} \equiv x^{p-1} \equiv 1 \pmod{p}.
+\]
+- Conversely, suppose $a^{(p-1)/2} \equiv 1 \pmod{p}$. Let $g$ be a primitive root modulo $p$, and write $a \equiv g^k \pmod{p}$. Then:
+\[
+g^{k(p-1)/2} \equiv 1 \pmod{p}.
+\]
+Since $g$ has order $p-1$, we must have $(p-1) \mid k(p-1)/2$, i.e., $2 \mid k$. Thus, $a \equiv (g^{k/2})^2 \pmod{p}$ is a quadratic residue.
+
+The case $a^{(p-1)/2} \equiv -1 \pmod{p}$ corresponds to non-residues.
+\end{proof}
+
+\begin{theorem}[Quadratic Reciprocity]\label{thm:quadraticreciprocity}
+For odd primes $p,q$:
+\[ \left(\frac{p}{q}\right)\left(\frac{q}{p}\right) = (-1)^{\frac{p-1}{2}\frac{q-1}{2}} \]
+\end{theorem}
+
+\begin{proof}
+The proof is involved and typically uses Gauss's Lemma or Eisenstein's proof via lattice counting. We sketch the key ideas:
+
+1. **Gauss's Lemma**: For prime $p$ and integer $a$, let $n$ be the number of least positive residues of $a, 2a, \ldots, \frac{p-1}{2}a$ that exceed $p/2$. Then:
+\[
+\left(\frac{a}{p}\right) = (-1)^n.
+\]
+
+2. Using this, one can show:
+\[
+\left(\frac{q}{p}\right) = (-1)^{\sum_{k=1}^{(p-1)/2} \lfloor 2kq/p \rfloor}.
+\]
+
+3. The exponent's parity is equivalent to $\frac{p-1}{2} \cdot \frac{q-1}{2}$ modulo $2$, leading to the reciprocity law.
+
+For a complete proof, see [Hardy \& Wright, §6.11].
+\end{proof}
+
+\subsection{Advanced Tools}
+
+\begin{theorem}[Hensel's Lemma]\label{thm:henselslemma}
+Let $f \in \mathbb{Z}[x]$. If $f(a) \equiv 0 \pmod{p^k}$ and $f'(a) \not\equiv 0 \pmod{p}$, then there exists a unique $b \equiv a \pmod{p^k}$ such that $f(b) \equiv 0 \pmod{p^{k+1}}$.
+\end{theorem}
+
+\begin{proof}
+We seek $b = a + t p^k$ for some integer $t$. By Taylor expansion:
+\[
+f(b) = f(a) + f'(a) t p^k + \frac{f''(a)}{2!} (t p^k)^2 + \cdots.
+\]
+Since $f(b) \equiv 0 \pmod{p^{k+1}}$, we have:
+\[
+f(a) + f'(a) t p^k \equiv 0 \pmod{p^{k+1}}.
+\]
+Divide by $p^k$ (noting $p^k \mid f(a)$ by hypothesis):
+\[
+\frac{f(a)}{p^k} + f'(a) t \equiv 0 \pmod{p}.
+\]
+This is a linear congruence in $t$:
+\[
+f'(a) t \equiv -\frac{f(a)}{p^k} \pmod{p}.
+\]
+Since $f'(a) \not\equiv 0 \pmod{p}$, there is a unique solution $t \pmod{p}$, yielding a unique $b \pmod{p^{k+1}}$.
+\end{proof}
+
+\begin{theorem}[Lucas' Theorem]\label{thm:lucastheorem}
+For prime $p$ and integers $m,n$ with base-$p$ expansions $m = \sum m_i p^i$, $n = \sum n_i p^i$:
+\[ \binom{m}{n} \equiv \prod \binom{m_i}{n_i} \pmod{p} \]
+\end{theorem}
+
+\begin{proof}
+The key observation is that for $0 \leq n \leq m < p$, $\binom{m}{n} \not\equiv 0 \pmod{p}$ iff $n_i \leq m_i$ for all $i$. The theorem follows by expanding $(1 + x)^m$ in two ways:
+
+1. Directly: $(1 + x)^m = \sum_{n=0}^m \binom{m}{n} x^n$.
+
+2. Using the base-$p$ expansion:
+\[
+(1 + x)^m = \prod_{i} (1 + x)^{m_i p^i} = \prod_{i} \left((1 + x^{p^i})^{m_i}\right).
+\]
+The coefficient of $x^n$ in the product is $\prod \binom{m_i}{n_i}$.
+
+Comparing coefficients gives the result.
+\end{proof}
+
+\begin{lemma}[Thue's Lemma]\label{lem:thueslemma}
+For $m > 1$ and $\gcd(a,m) = 1$, there exist $x,y$ with $0 < |x|,|y| \leq \sqrt{m}$ such that:
+\[ ax \equiv y \pmod{m} \]
+\end{lemma}
+
+\begin{proof}
+Let $k = \lfloor \sqrt{m} \rfloor + 1$. Consider the set of all pairs $(r, s)$ where $0 \leq r, s \leq k-1$. There are $k^2 > m$ such pairs, so by the pigeonhole principle, there exist two distinct pairs $(r_1, s_1)$ and $(r_2, s_2)$ such that:
+\[
+a r_1 - s_1 \equiv a r_2 - s_2 \pmod{m}.
+\]
+Let $x = r_1 - r_2$ and $y = s_1 - s_2$. Then:
+\[
+a x \equiv y \pmod{m},
+\]
+and $0 < |x|, |y| \leq k-1 \leq \sqrt{m}$.
+\end{proof}
+
+\subsection{Exponent Lifting}
+
+\begin{theorem}[Lifting the Exponent (LTE)]\label{thm:liftingtheexponent}
+For odd prime $p$ and integers $x,y$ not divisible by $p$ with $x \equiv y \not\equiv 0 \pmod{p}$:
+\[ \nu_p(x^n - y^n) = \nu_p(x - y) + \nu_p(n) \]
+where $\nu_p(k)$ is the exponent of $p$ in $k$.
+\end{theorem}
+
+\begin{proof}
+We proceed by induction on $\nu_p(n)$. Write $n = p^k m$ with $\gcd(m, p) = 1$.
+
+1. **Base case ($k = 0$)**: We show $\nu_p(x^m - y^m) = \nu_p(x - y)$. Let $x = y + p t$ where $p \nmid t$. Then:
+\[
+x^m - y^m = \sum_{i=1}^m \binom{m}{i} y^{m-i} (p t)^i.
+\]
+The first term is $m y^{m-1} p t$, and subsequent terms are divisible by $p^{i} \geq p^2$. Thus:
+\[
+\nu_p(x^m - y^m) = \nu_p(m y^{m-1} p t) = \nu_p(p t) = \nu_p(x - y).
+\]
+
+2. **Inductive step**: For $n = p^k m$, write:
+\[
+x^n - y^n = (x^{p^{k-1} m})^p - (y^{p^{k-1} m})^p = (x^{p^{k-1} m} - y^{p^{k-1} m}) \cdot \text{other terms}.
+\]
+Using the base case and induction, the result follows.
+\end{proof}
+\end{document}
+

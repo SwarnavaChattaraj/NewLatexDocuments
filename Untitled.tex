@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage{evan} % Load the evan.sty package
+\usepackage{amsmath} % For math formatting (often used with evan.sty)
+
+\title{Sample Document Using \texttt{evan.sty}}
+\author{Your Name}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+This document showcases the custom environments from \texttt{evan.sty}.
+
+\section{Theorem Box}
+\begin{theorem}[Pythagorean Theorem]
+    In a right triangle, the square of the hypotenuse equals the sum of the squares of the other two sides:
+    \[ a^2 + b^2 = c^2 \]
+\end{theorem}
+
+\section{Claim Box}
+\begin{claim}
+    If \( n \) is an even integer, then \( n^2 \) is also even.
+\end{claim}
+\begin{proof}
+    Let \( n = 2k \). Then \( n^2 = 4k^2 \), which is even.
+\end{proof}
+
+\section{Example Box}
+\begin{example}
+    The function \( f(x) = x^2 \) has a minimum at \( x = 0 \).
+\end{example}
+
+\section{Exercise Box}
+\begin{exercise}
+    Prove that the sum of two odd numbers is even.
+\end{exercise}
+
+\section{Remark Box}
+\begin{remark}
+    This is a noteworthy observation.
+\end{remark}
+
+\section{Problem Box (Custom Numbered)}
+\begin{problem}[A1]
+    Find all real solutions to \( x^2 - 5x + 6 = 0 \).
+\end{problem}
+
+\section{Solution Box}
+\begin{solution}
+    Factor the equation:
+    \[ (x-2)(x-3) = 0 \]
+    The solutions are \( x = 2 \) and \( x = 3 \).
+\end{solution}
+
+\end{document}

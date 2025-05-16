@@ -1,0 +1,20 @@
+\documentclass{scrartcl} % KOMA-Script class for automatic colors
+\usepackage[sexy]{evan} % Load evan.sty with 'sexy' option
+\usepackage{amsmath}    % For math formatting
+\usepackage{xcolor}     % Ensure xcolor is available (often needed)
+
+\title{Sample Document with \texttt{evan.sty} Colors}
+\author{Your Name}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction} % Colored section (automatically from 'sexy' + scrartcl)
+\begin{theorem}[Binomial Theorem]
+For any non-negative integer \( n \),
+\[ 2^n = \sum_{i = 0}^{n} \binom{n}{i} \]
+\end{theorem}
+
+\end{document}

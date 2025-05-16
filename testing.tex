@@ -1,0 +1,35 @@
+\documentclass{scrartcl} % KOMA-Script class for automatic colors
+\usepackage[sexy]{evan} % Load evan.sty with 'sexy' option
+\usepackage{amsmath}    % For math formatting
+\usepackage{xcolor}     % Ensure xcolor is available (often needed)
+
+\title{Sample Document with \texttt{evan.sty} Colors}
+\author{Your Name}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction} % Colored section (automatically from 'sexy' + scrartcl)
+This document shows colored theorem boxes and sections.
+
+\section{Theorem Environments}
+
+\begin{theorem}[Pythagoras]
+    For a right triangle: \( a^2 + b^2 = c^2 \).
+\end{theorem}
+
+\begin{claim}
+    Even \( n \) implies even \( n^2 \).
+\end{claim}
+
+\begin{example}
+    \( f(x) = x^2 \) has a minimum at \( x = 0 \).
+\end{example}
+
+\begin{exercise}
+    Prove that \( \sqrt{2} \) is irrational.
+\end{exercise}
+
+\end{document}

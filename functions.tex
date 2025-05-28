@@ -1,0 +1,142 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb, amsthm}
+
+\theoremstyle{definition}
+\newtheorem{problem}{Problem}
+\newtheorem{solution}{Solution}
+
+\begin{document}
+
+\begin{problem}[2]
+Prove that $f : X \longrightarrow Y$ is injective if and only if it is ‘left cancellable’, i.e., given $g, h : T \longrightarrow X$,
+\[ f \circ g = f \circ h \implies g = h. \]
+\end{problem}
+
+\begin{solution}
+($\Rightarrow$) Suppose $f$ is injective, then for all $t \in T$,
+\[
+	f(g(t)) = f(h(t)) \implies g(t) = h(t)  \forall t \in T \implies g = h.
+\]
+
+
+($\Leftarrow$) Suppose $f$ is left cancellable. To show $f$ is injective, let $x_1, x_2 \in X$ with $f(x_1) = f(x_2)$. Define $g, h : \{*\} \longrightarrow X$ by $g(*) = x_1$ and $h(*) = x_2$. Then $f \circ g = f \circ h$, so by left cancellability, $g = h$, hence $x_1 = x_2$. Thus, $f$ is injective.
+\end{solution}
+
+\begin{problem}[3]
+Prove that:
+\begin{enumerate}
+    \item[i.] If $X \neq \emptyset$, $f : X \longrightarrow Y$ is injective if and only if it has a ‘left inverse’, i.e., a function $g : Y \longrightarrow X$ such that $g \circ f = \text{id}_X$.
+    \item[ii.] If $|X| \neq 1$, then $f : X \longrightarrow Y$ is bijective if and only if it has a unique left inverse.
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+\begin{enumerate}
+    \item[i.] ($\Rightarrow$) Suppose $f$ is injective. Since $X \neq \emptyset$, fix $x_0 \in X$. Define $g : Y \longrightarrow X$ by
+    \[
+    g(y) = 
+    \begin{cases}
+    x & \text{if } y = f(x) \text{ for some } x \in X, \\
+    x_0 & \text{otherwise}.
+    \end{cases}
+    \]
+    Then $g \circ f = \text{id}_X$ because $g(f(x)) = x$ for all $x \in X$.
+
+    ($\Leftarrow$) Suppose $g \circ f = \text{id}_X$. If $f(x_1) = f(x_2)$, then $x_1 = g(f(x_1)) = g(f(x_2)) = x_2$, so $f$ is injective.
+
+    \item[ii.] ($\Rightarrow$) If $f$ is bijective, its inverse $f^{-1}$ is a left inverse, and it is unique because any left inverse $g$ must satisfy $g(y) = f^{-1}(y)$ for all $y \in Y$.
+
+    ($\Leftarrow$) Suppose $f$ has a unique left inverse $g$. From part (i), $f$ is injective. If $f$ were not surjective, there exists $y_0 \in Y \setminus f(X)$. Define $g' : Y \longrightarrow X$ by
+    \[
+    g'(y) = 
+    \begin{cases}
+    g(y) & \text{if } y \neq y_0, \\
+    x' & \text{if } y = y_0,
+    \end{cases}
+    \]
+    where $x' \in X$ is arbitrary. Since $|X| \neq 1$, we can choose $x' \neq g(y_0)$, making $g' \neq g$ but still $g' \circ f = \text{id}_X$, contradicting uniqueness. Thus, $f$ is surjective, hence bijective.
+\end{enumerate}
+\end{solution}
+
+\begin{problem}[4]
+Prove that $f : X \longrightarrow Y$ is surjective if and only if it is ‘right cancellable’, i.e., given $g, h : Y \longrightarrow Z$,
+\[ g \circ f = h \circ f \implies g = h. \]
+\end{problem}
+
+\begin{solution}
+($\Rightarrow$) Suppose $f$ is surjective, and let $g, h : Y \longrightarrow Z$ satisfy $g \circ f = h \circ f$. For any $y \in Y$, there exists $x \in X$ such that $f(x) = y$. Then $g(y) = g(f(x)) = h(f(x)) = h(y)$, so $g = h$.
+
+($\Leftarrow$) Suppose $f$ is right cancellable. Assume for contradiction that $f$ is not surjective, so there exists $y_0 \in Y \setminus f(X)$. Define $g, h : Y \longrightarrow \{0, 1\}$ by $g(y) = 0$ for all $y$, and
+\[
+h(y) = 
+\begin{cases}
+0 & \text{if } y \neq y_0, \\
+1 & \text{if } y = y_0.
+\end{cases}
+\]
+Then $g \circ f = h \circ f$ (since $y_0 \notin f(X)$), but $g \neq h$, contradicting right cancellability. Thus, $f$ is surjective.
+\end{solution}
+
+\begin{problem}[5]
+Prove that:
+\begin{enumerate}
+    \item[i.] $f : X \longrightarrow Y$ is surjective if and only if it has a ‘right inverse’, i.e., a function $g : Y \longrightarrow X$ such that $f \circ g = \text{id}_Y$.
+    \item[ii.] $f : X \longrightarrow Y$ is bijective if and only if it has a unique right inverse.
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+\begin{enumerate}
+    \item[i.] ($\Rightarrow$) Suppose $f$ is surjective. For each $y \in Y$, choose (by the Axiom of Choice) $x_y \in X$ such that $f(x_y) = y$. Define $g : Y \longrightarrow X$ by $g(y) = x_y$. Then $f \circ g = \text{id}_Y$.
+
+    ($\Leftarrow$) Suppose $f \circ g = \text{id}_Y$. For any $y \in Y$, $f(g(y)) = y$, so $g(y)$ is a preimage of $y$ under $f$. Thus, $f$ is surjective.
+
+    \item[ii.] ($\Rightarrow$) If $f$ is bijective, its inverse $f^{-1}$ is a right inverse, and it is unique because any right inverse $g$ must satisfy $g(y) = f^{-1}(y)$ for all $y \in Y$.
+
+    ($\Leftarrow$) Suppose $f$ has a unique right inverse $g$. From part (i), $f$ is surjective. If $f$ were not injective, there exist $x_1 \neq x_2$ in $X$ with $f(x_1) = f(x_2) = y$. Define $g' : Y \longrightarrow X$ by
+    \[
+    g'(y') = 
+    \begin{cases}
+    g(y') & \text{if } y' \neq y, \\
+    x_2 & \text{if } y' = y.
+    \end{cases}
+    \]
+    Then $f \circ g' = \text{id}_Y$ but $g' \neq g$, contradicting uniqueness. Thus, $f$ is injective, hence bijective.
+\end{enumerate}
+\end{solution}
+
+\begin{problem}[6]
+Prove that $f : X \longrightarrow Y$ is bijective if and only if it has a ‘two-sided inverse’, i.e., a function $g : Y \longrightarrow X$ such that $g \circ f = \text{id}_X$ and $f \circ g = \text{id}_Y$ (in which case it's unique by above).
+\end{problem}
+
+\begin{solution}
+($\Rightarrow$) If $f$ is bijective, its inverse $f^{-1}$ satisfies $f^{-1} \circ f = \text{id}_X$ and $f \circ f^{-1} = \text{id}_Y$.
+
+($\Leftarrow$) Suppose $g$ is a two-sided inverse. Then $g \circ f = \text{id}_X$ implies $f$ is injective (by Problem 3.i), and $f \circ g = \text{id}_Y$ implies $f$ is surjective (by Problem 5.i). Thus, $f$ is bijective. Uniqueness follows from Problems 3.ii and 5.ii.
+\end{solution}
+
+\begin{problem}[7]
+Prove that:
+\begin{enumerate}
+    \item[i.] $\exists f : X \longrightarrow Y$ surjective $\implies \exists g : Y \longrightarrow X$ injective.
+    \item[ii.] If $Y \neq \emptyset$, $\exists g : Y \longrightarrow X$ injective $\implies \exists f : X \longrightarrow Y$ surjective.
+\end{enumerate}
+\end{problem}
+
+\begin{solution}
+\begin{enumerate}
+    \item[i.] Let $f : X \longrightarrow Y$ be surjective. By Problem 5.i, there exists a right inverse $g : Y \longrightarrow X$ such that $f \circ g = \text{id}_Y$. Then $g$ is injective because if $g(y_1) = g(y_2)$, then $y_1 = f(g(y_1)) = f(g(y_2)) = y_2$.
+
+    \item[ii.] Let $g : Y \longrightarrow X$ be injective, and $Y \neq \emptyset$. Fix $y_0 \in Y$. Define $f : X \longrightarrow Y$ by
+    \[
+    f(x) = 
+    \begin{cases}
+    y & \text{if } x = g(y) \text{ for some } y \in Y, \\
+    y_0 & \text{otherwise}.
+    \end{cases}
+    \]
+    Then $f$ is surjective because for any $y \in Y$, $f(g(y)) = y$.
+\end{enumerate}
+\end{solution}
+
+\end{document}

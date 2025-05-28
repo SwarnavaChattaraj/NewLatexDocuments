@@ -31,8 +31,7 @@ is $26$.
 \end{example}
 \begin{proof}[Solution]
 	The overall strategy is to show that the upper bound of the expression is $27$ and the lower bound of the expression is $26$.\\
-	For the upper bound club $\sqrt{5}$ and $\sqrt{13}$ and so on such that everytime you club $\sqrt{a} + \sqrt{b}$, you have $a + b = 18$. Then notice that you can write
-	\[
+	For the upper bound club $\sqrt{5}$ and $\sqrt{13}$ and so on such that everytime you club $\sqrt{a} + \sqrt{b}$, you have $a + b = 18$. Then notice that you can write \[
 		\sqrt{a} + \sqrt{b} = \sqrt{\left(\sqrt{a}+\sqrt{b}\right)^2}
 	\]
 	I leave the rest upon the reader.
@@ -76,10 +75,16 @@ Consider the following two sets which contains the value of $m$ for different va
 \end{align*}
 Let $m \in B \Rightarrow f(m) = (t + 1)^2 + (k - t - 1)$. So two cases from here if $k = t+1$ we are done, otherwise $f(m) \in A$. So if $f(m) \in A$, consider $f^2(m) = (t+1)^2 + (k - t - 1) + \floor{f(m)}$.Now $\floor{f(m)} = t \implies f^2(m) = (t+1)^2 + (k - 1)$.Now again do the entire procedure from the begining but this time set $m = f^2(m)$ and you would get $f^4(m) = (t + 2)^2 + (k - 2)$. So\[ f^{2j}(m) = (t + j)^2\].
 \end{proof}
-
-\begin{example}
-	Let $a_1, a_2,\cdots, a_{100}$ be $100$ integers. Show that there exists integers $1 \leq m \leq n \leq 100$, such that\[\sum\limits_{i = m}^{n} a_i \equiv 0 \pmod{100} \]
+\begin{example}[CMI B3, 2015]
+	Show that there are exactly 2 numbers $a \in \{1,2,3,\cdots, 9999\}$ for which $a^2 - a$ is divisble by $10000$.\\
+		Let $n$ be a postive intger. For how many numbers $a$ in $\{2,3,\cdots, n^2-1\}$ is $a^2 - a$ divisble by $n^2$.
 \end{example}
+\begin{example}[SMT(Discrete Tiebreakers), 2024]
+Find the largest 3 digit number that is not divisible by 3 but is a multiple of its sum of digits.
+\end{example}
+\newpage
+
+
 \newpage
 \section{Introductory Congruence Modulo and Useful Theorems}
 
@@ -97,7 +102,24 @@ For any integers $a,b,c,d$ and positive integer $m$:
     \end{itemize}
 \end{enumerate}
 \end{theorem}
-
+\begin{lemma}[Canonical Residues modullo $n$]
+Let $a,n \in \NN$. Then, \[a \equiv r \pmod{n}.\]
+where $r$ is exactly one of the following $\{1,2,\cdots,n-1\}$.
+\end{lemma}
+\begin{example}
+	Let $a_1, a_2,\cdots, a_{100}$ be $100$ integers. Show that there exists integers $1 \leq m \leq n \leq 100$, such that\[\sum\limits_{i = m}^{n} a_i \equiv 0 \pmod{100} \]
+\end{example}
+\begin{proof}[Solution]
+	If $\exists\ a_k, \ k \in \{1,\cdots,100\}$ such that $a_k \equiv 0 \pmod{100}$, then set $m = n = k$ and we are done.\\
+	Otherwise consider the following sequence $\{s_i\}_{i = 1}^{100}$,
+	\[
+		s_i \coloneq \sum_{i = 1}^i a_i
+	\]
+	Then by \textbf{Piegeon Hole Principle}, $\exists\ i,j,\ \left(i < j\right)$ such that $s_i \equiv s_j \pmod{100}$. Well that helps in the following way:
+	\[s_i - s_j \equiv \sum_{t = i + 1}^{j} a_t \equiv 0 \pmod{100}\]
+So in principle what we are doing is setting $m = i + 1$ and $n = j$.
+\end{proof}
+\newpage
 \begin{theorem}[Fermat's Little Theorem]\label{thm:fermatslittletheorem}
 For a prime $p$ and integer $a$ with $p \nmid a$:
 \[ a^{p-1} \equiv 1 \pmod{p} \]

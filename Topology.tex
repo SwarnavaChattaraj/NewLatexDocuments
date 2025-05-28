@@ -1,0 +1,446 @@
+\documentclass{scrartcl} % KOMA-Script class for automatic colors
+\usepackage[sexy]{evan} % Load evan.sty with 'sexy' option
+\usepackage{amsmath}    % For math formatting
+\usepackage{xcolor}     % Ensure xcolor is available (often needed)
+\newcommand{\Tau}{\mathcal{T}}
+\newcommand{\sP}{\mathcal{P}}
+\newcommand{\sF}{\mathcal{F}}
+\newcommand{\sI}{\mathcal{I}}
+\newcommand{\sD}{\mathcal{D}}
+\newcommand{\sS}{\mathcal{S}}
+\newcommand{\sC}{\mathcal{C}}
+\newcommand{\sB}{\mathcal{B}}
+\newcommand{\sSp}{Sierpi\'nsky}
+\newcommand{\ssp}{sierpi\'nsky}
+\title{Point Set Topology}
+\author{Swarnava Chattaraj}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\section{Axioms of Topology and Examples}
+Let $X$ be any set, $\sP(x)$ denote the power
+set of $X$. A family $\Tau \subset \sP(x)$ is called a
+\textbf{topology} on $X$ if the following properties are
+satisfied :
+\begin{itemize}
+	\item $\emptyset$, $X$ are in $\Tau$.(Not really
+		required)
+	\item $\left(\textbf{AU}\right)$
+		If $\sF$ is in $\Tau$, then
+		$\bigcup \{U : U \in \sF \} \in \Tau$
+	\item $\left(\textbf{FI}\right)$ If $\sF$ is a
+		finite subfamily of $\Tau$, then 
+	 	$\bigcap \{U : U \in \sF \} \in \Tau$
+\end{itemize}
+Due to pedagogical reasons and sheer neglect we will
+replace $\left(X, \Tau \right)$ is a\\ 
+\textbf{topological space} with just $X$ is a topological space and the topology induced is understood form the 
+context.
+\begin{definition}[Open and Closed Sets]
+	Elements of $\Tau$ are called \textbf{open} 
+	sets in $\left(X, \Tau\right)$. A subset 
+	$\sF \subset X$ is called \textbf{closed} if
+	its complement $\sF^c \coloneq X\setminus\sF$
+	is open in $\left(X, \Tau\right)$.
+\end{definition}
+\begin{remark}
+We say that we have determined a Topological space 
+completely if we know all of its open sets or 
+equivalently all of its closed sets.
+\end{remark}
+\begin{lemma}[DeMorgan's Law]
+Recall from basic set theory that $\left(A \cup B\right)
+^c = A^c \cap B^c$
+\end{lemma}
+I am hoping it is clear why we are bringing this result
+, as it will often be a useful trick to translate our 
+argument from the context \textbf{open sets} to
+\textbf{closed sets}.
+
+\begin{definition}[Neighbourhoods]
+Let $X$ be a topological space. A subset $A$ of $X$ is
+called a \textbf{neighbourhood} of $x \in X$ if there
+exists a open set $U$ such that $x \in U \subset A$.\\
+$A$ will be termed an \textbf{open neighbourhood} if $A$
+itself is \textbf{open}.
+\begin{remark}
+A subset $A$ is open iff it is a neighbourhood of every point belonging to it.
+\end{remark}
+\begin{proof}
+The first direction, \\
+$x \in A, A \subset A \implies A$ is a neighbourhood of all points in $A$.\\
+The other direction, \\
+if $\forall\ x \in A$, is a neighbourhood of $x$ that
+implies that $\exists\ U_x \forall\ x \in A : U_x 
+\subset A$. Taking the union we have $\bigcup_{x \in A}
+U_x = A$.
+\end{proof}
+\end{definition}
+\newpage
+\begin{remark}
+Well we made a note that the first axiom of the
+Topological space was not required, we will only hint to
+it. With enough set theory background the following two
+statements can be made. Let $U \subset A$,
+\begin{itemize}
+	\item $\bigcap\limits_{U \in \emptyset} U = X$
+		(\textbf{FI})
+	\item $\bigcup\limits_{U \in \emptyset} U =
+		\emptyset$ (\textbf{AU})
+\end{itemize}
+Well that actually completes the claim that the first
+axiom was not really necessary.\\ Although we will not
+spend anymore time on this, the two set theoretic
+statement are to be contemplated on and will be used 
+later on.
+\end{remark}
+
+\begin{theorem}
+Let $\left(X, d\right)$ be a metric space, $\Tau(d)$
+defined as, 
+\[
+	\Tau(d) \coloneq \{ U \subset X : U = 
+	\bigcup\limits_i B_{r_i} (x_i) \}
+\]
+defines a topology on $X$. Generally $\left(X, \Tau(d)
+	\right)$ will be called the topological space
+associated with metric $d$ and $\Tau(d)$ as the topology
+associated with metric $d$. Such topology that arrise
+from a metric are called \textbf{Metric Topology} or 
+\textbf{Metrizable Topology}.
+\end{theorem}
+\begin{example}[Discrete and Indiscrete Topology]
+	\label{ex:di}
+Let $X$ be any set. Let $\Tau = \sI \coloneq \{\emptyset
+, X\}$ and $\Tau = \sD \coloneq \sP(x)$, then 
+$\left(X, \sI\right)$ and $\left(X, \sD\right)$ form
+indiscrete and discrete topological space.
+\end{example}
+\begin{example}[Sierpi\'nsky Space]
+\label{ex:sierpspace}
+	Let $X = \{0, 1\}$, and
+	$\Tau = \{\emptyset, \{0\}, \{0, 1\} \}$.\\
+Then $\sS \coloneq \left(X, \Tau \right)$
+	is known as the \textbf{Sierpi\'nsky Space}. \\
+	After we have defined what is a continuous 
+	functions we will prove that we can completely
+	determine any topological space $Y$ by the
+	set of all continuous functions from
+	$Y$ to $\sS$.
+\end{example}
+\begin{example}[Generalizsed Sierpi\'nsky Point]
+	\label{ex:gsierspace}
+	Take any topological space 
+	$\left(X, \Tau\right)$, now consider 
+	$s(X) \coloneq
+	\left( X \sqcup \{*\}, \Tau'\right)$ where \\
+	$\Tau' = \Tau \cup \{X \cup \{*\} \}$. Then
+	thing to notice here is the only open set
+	containing\\ $*$ is $X \cup \{*\}$. A space
+	that satisfies the mentioned property is called
+	a\\ \textbf{Generalised \sSp \ space}. A point 
+	$x \in X$ is called a \textbf{\ssp \ point}
+	if the only open set containing it is $X$.
+\end{example}
+\begin{remark}
+	Recall \autoref{ex:sierpspace} according 
+	the definition
+	of \ssp \ point\\ in \autoref{ex:gsierspace}, $\{1\}$
+	is a \ssp \ point because the only open set
+	containing it is $X$.
+\end{remark}
+\newpage
+
+\section{Digression to the land of Algebra}
+Let $X$ be any set and $\FF$ is $\RR$ or $\CC$. 
+Let $\sF \coloneq F\left(X,\FF\right)$ be the set of
+all functions $f : X \rightarrow \FF$. Now the
+ set already has the following structures to $\sF$
+already,
+\begin{itemize}
+	\item $\left(f + g\right)(x) = f(x) + g(x)$
+	\item $\left(\alpha f\right)(x) = \alpha f(x)$
+\end{itemize}
+for all $x \in X$, $f, g \in \sF$, $\alpha \in \FF$.\\
+So $\sF$ is a \textbf{Vector Space} over the field
+$\FF$.
+It has one more interesting algebraic structure,
+\[
+\left(f\circ g \right)(x) \coloneq f(x)g(x) \in \sF 
+\]
+The multiplication is known as the \textbf{point-wise
+multiplication}. It has the following
+properties \\
+\textbf{(i) associative},
+$\left(\left(f\circ g \right)\circ \left(h\right)\right) (x) = \left(\left(f\right)\circ\left(g\circ h
+	\right)\right)(x)$\\
+\textbf{(ii) commutative},
+$\left(f\circ g\right)(x) = \left(g\circ f \right)(x)$.
+\\
+\textbf{(iii) bilinear with respect to the
+vector space structure} of $\sF$,
+\[
+f\circ \left(g + h\right) = f\circ g + f\circ h = g\circ f + 
+h\circ f =
+\left(g + h\right)\circ f
+\]
+\[
+	f\circ\left(\alpha g\right)  = 
+	\alpha \left(f\circ g\right) 
+\]
+\[
+\left(\alpha f\right)\circ g = \alpha \left( f\circ g\right) 
+\]
+The bilinearity is tedious to check.\\
+Now the $+$ operation of the vector space structure of 
+$\sF$ is \textbf{associative}, \textbf{commutative} and
+supports \textbf{additive inverse}.
+The \textbf{0(x)} function is already a continuous 
+function so $0(x) \in \sF$.
+So $\left(\sF, +\right)$ is an \textbf{Abelian group}.\\
+Now $1(x)$ or the identity function is continuous
+so it is in $\sF$. As indicated above
+$\left(\sF, \circ \right)$, is associative, and
+distirbutive.\\
+So $\left(\sF, +, \circ \right)$ is a \textbf{Ring}
+or more specifically a \textbf{unitary Ring}. Not only
+that it is \textbf{Commutative Ring}. The dual structure
+ of a vector space and ring along with the bilinearity 
+ makes it also a 
+\textbf{Commutative Algebra} over $\FF$.\\
+Moreover if you restrict $\sF$ to 
+$\sB \coloneq B(X,\FF)$ in which you
+restrict yourself to only bounded functions and impose the \textbf{sup norm},
+\[
+	\|f\|_\infty \coloneq \sup\{|f(x)| : x \in X\}
+\]
+Due to the point-wise multiplication definition the 
+following is also true,
+\[
+	\|fg\|_\infty \leq \|f\|_\infty\|g\|_\infty
+\]
+An algebra together with the above property is known as
+the \textbf{Normed Algebra}.\\
+Associated to the above norm is the following metric:
+\[
+d_\infty(f,g) = \|f - g\|_\infty
+\]
+Convergence of function with respect to the above metric
+gives uniform convergence. We would come back to this
+later on.\\
+Now we restrict $X$ to be a metric space.Another 
+subset of $\sB$, call it $\sC \coloneq C(X,\FF)$ be
+the set of all continuous function, so $\sC$ contains
+all 
+continuous and bounded functions from $X$ to $\FF$.
+Then it is easy to see that $\sC$ is a vector subspace
+of $\sB$.\\
+The property which we would study later on is that
+$\sC, \sB$ are complete, and so they form a very 
+important class of normed linear algebras knows as
+\textbf{Banach Algebras}.
+\newpage
+\section{Mappings}
+\begin{definition}[Continuity]
+Let $\left(X_i, \Tau_i\right)$ for $i = 1,2$ be 
+two topological spaces. We call a set theoretic function
+$f : \left(X_1, \Tau_1\right) \rightarrow
+\left(X_2, \Tau_2\right)$ is continuous function if
+$f^{-1}(V) \in \Tau_1$ for all $V \in \Tau_2$.
+\end{definition}
+Not that anyone asked but I want to emphasize that 
+$f^{-1}(x) \coloneq \{x \in X_1 : f(x) \in V \}$, if 
+you want to be to pedantic you can replace $f^{-1}$ with
+$f^{pre}$.
+\begin{theorem}
+Let $\left(X_i, d_i\right)$ for $i = 1,2$ be 
+two metric spaces.
+$f : \left(X_1, \Tau(d_1)\right) \rightarrow
+\left(X_2, \Tau(d_2)\right)$ is continuous function iff
+$f : \left(X_1, d_1\right) \rightarrow
+\left(X_2, d_2\right)$ is continuous.
+\end{theorem}
+\begin{proof}
+Just to recall the way $\Tau(d) \coloneq \{ 
+U \subset X : U = \bigcup_i B_{r_i} (x_i) \}$.\\
+The first direction,\\
+It is evident from construction that for any 
+$f(x) \in X_2$ take a open ball of radius $\epsilon > 0$
+, $V = B_{\epsilon}(f(x)) \in \Tau(d_2)$.
+By definition of continuity $f^{-1}(V) \in 
+\Tau(d_1)$. Since $x \in f^{-1}(V)$, there exists at least
+one open ball of radius $\delta > 0$, $U = B_{\delta}(x)\subset
+f^{-1}(V)$ which contains $x$. Now pick a $y \in U$, then $f(y) \in V$ which is 
+ equivalent to saying that 
+ if $d_1(y,x) < \epsilon \implies d_2(f(y),f(x)) < \epsilon$.\\
+The opposite direction,\\
+Now to begin the proof, take any $V \in \Tau(d_2)$
+take a point $x \in
+X_1$ such that $f(x) \in V$. So we have $x \in f^{-1}(V)
+$. Now $V$ is a open set so there is some open ball
+of radius $\epsilon_x > 0$, such that
+\[
+	B_{\epsilon_x}(f(x))\subset V 
+\]
+The next step is to notice that for a given $x$,
+$\ \forall \ \epsilon > 0, \ \exists \ \delta > 0$
+such that\\
+$f$ maps  $B_{\delta}(x)$ to $B_{\epsilon}(f(x))$ 
+.This comes
+from that fact that $f$ is continuous in the metric space
+so 
+\[d_1(y,x) < \delta \implies d_2(f(x),f(y)) < \epsilon
+\]
+So an appropriate $\delta_x > 0$
+(more appropriately $\delta(x, \epsilon)$) can be chosen such that
+\[
+f(B_{\delta_x}(x)) \subset V \implies
+B_{\delta_x}(x) \subset f^{-1}(V)
+\]
+And finally we will use the fact that we had chosen a
+generic $x$ and a generic $V$ so,
+\[
+	\forall\ x \in f^{-1}(V),\ \  
+	\exists \ \ B_{\delta_x}(x) \subset f^{-1}(V) 
+\]
+which means that 
+\[
+	f^{-1}(V) = \bigcup\limits_{x \in f^{-1}(V)}
+	B_{\delta_{x}}(x)
+\]
+So $f^{-1}(V) \in \Tau(d_1)$.
+\end{proof}
+\newpage
+\begin{theorem}\label{thm:composition}
+Let $f : \left(X_1, \Tau_1\right) \rightarrow
+\left(X_2, \Tau_2\right)$ and
+$g : \left(X_2, \Tau_2\right) \rightarrow
+\left(X_3, \Tau_3\right)$ be 
+continuous functions. 
+Then $g \circ f : \left(X_1, \Tau_1\right)
+\rightarrow \left(X_3, \Tau_3\right)$ is also continuous.
+\end{theorem}
+\begin{proof}
+The following set-theoretic results immediately kills the
+proof, let $U$ be a set,
+\[
+	f^{-1}\left(g^{-1}(U)\right) = 
+	\left(g \circ f\right)^{-1}(U)
+\]
+Let $V \in \Tau_3$, then we want to show that 
+$\left(g \circ f\right)^{-1}(V) \in \Tau_1$. Since 
+$g$ is continuous $g^{-1}(V) \in \Tau_2$ and since $f$ is continuous $f^{-1}\left(g^{-1}(V)\right) \in \Tau_1$ and 
+we are done.
+\end{proof}
+\begin{definition}
+We call $f : \left(X_1, \Tau_1\right) \rightarrow
+\left(X_2, \Tau_2\right)$ a \textbf{homeomorphism} iff
+$f$ is continuous and bijective and $f^{-1}$ is also
+continuous. We call two topological spaces 
+\textbf{homeomorphic} if there exists a homeomorphism
+between the two spaces.
+\end{definition}
+\begin{remark}
+$f : \left(X_1, \Tau_1\right) \rightarrow
+\left(X_2, \Tau_2\right)$ be a homemorphism then we say $X_1 \overset{f}{\cong} X_2$ as a short hand for homeomorphic.\\
+Also note that $X_2 \overset{f^{-1}}{\cong} X_1$. 
+\end{remark}
+\begin{remark}
+Being homeomorphic is a equivalence relation in the 
+collection of all topological spaces. So two homeomorphic topological space which are equivalent are in same 
+equivalence class or more loosely are of \textbf{same type} or \textbf{same homeomorphism typle}.
+\end{remark}
+\begin{proof}
+	The following properties of equivalence relation 
+	need to be checked:
+	\begin{itemize}
+		\item symmetry is trivial because $f$ and
+			$f^{-1}$ are both continuous.
+		\item associativity is guaranteed by 
+			\autoref{thm:composition}.
+		\item reflexivity is guaranteed by the
+			presence of identity map.(check that it is indeed a homeomorphism)
+	\end{itemize}
+\end{proof}
+
+\begin{example}
+The following sets are homeomorphic to each other:
+\begin{itemize}
+	\item Any two closed intervals containing more
+		than one point.
+	\item Any two non empty open intervals.
+	\item Any non empty open interval and $\RR$.
+\end{itemize}
+For the first two one can always find homeomorphic maps
+$f(x) = ax + b$, and for the third case it is a bit
+tricky. One way to find such maps are composition. For
+example homeomorphisms like $f(x) = 
+\tan\left(\dfrac{\pi x}{2}\right)$ makes the intervals
+$(-1,1)$ homeomorphic to $\RR$ and then use linear 
+maps to make any open interval $(a,b)$ homeomorphic to 
+$(-1,1)$. Then the composition is a homeorphism between
+$(a,b)$ to $\RR$.
+\end{example}
+\begin{example}
+	Given any topological space $X$, $\mathcal{H}(X)$
+	is the set of all self-homeomorphisms.\\
+	$\mathcal{H}(X)$ forms a \textbf{group}. In 
+	particular $\mathcal{H}(\RR)$ is a huge group.
+\end{example}
+\begin{lemma}
+A onto function $f : \RR \rightarrow \RR$ which is 
+continuous and strictly monotone is a homeomorphism.
+\end{lemma}
+\begin{remark}
+	The above theorem helps us characterize all the
+	homeomorphisms of $\mathcal{H}(X)$.
+\end{remark}
+\begin{definition}
+	We say that we can classify all topological spaces if we can create a set $\mathfrak{Top}$ of topological
+	spaces such that
+	\begin{itemize}
+		\item if $X_1, X_2 \in \mathfrak{Top} \implies X_1 \ncong X_2$ 
+		\item if $Y \notin \mathfrak{Top}$ then $\ \exists \ X \in \mathfrak{Top}$ such that
+			$Y \cong X$.
+	\end{itemize}
+\end{definition}
+\begin{remark}
+	The construction of above $\mathfrak{Top}$ is hopeless. We might provide an answer very later because it 
+	requires  decent group theory and even algebraic topology.
+\end{remark}
+\begin{definition}
+	A property $P$ is called a \textbf{topological property} or \textbf{topological invariant} if every 
+	homeomorphism preserves it, i.e if $f : \left(X_1, \Tau_1\right) \rightarrow \left(X_2, \Tau_2\right)$
+	be a homeomorphism then $\left(X_1, \Tau_1\right)$ satisfies $P$ iff $\left(X_2, \Tau_2\right)$. 
+\end{definition}
+\begin{remark}
+To show that there is no homeomorphism between two topological spaces, find a property $P$ which is satisfied
+by only one of them.
+\end{remark}
+\begin{definition}
+We call $f: \left(X_1, \Tau_1\right) \rightarrow \left(X_2, \Tau_2\right)$ an open mapping if
+\[
+U \in \Tau_1 \implies f(U) \in \Tau_2
+\]
+We can similarly say $f$ is a closed mapping if
+\[
+	X_1\setminus K \in \Tau_1 \implies X_2 \setminus f\left(K\right) \in \Tau_2
+\]
+\newpage
+\begin{lemma}\label{thm:bi+oimpliescont}
+	If $f : \left(X_1, \Tau_1\right) \rightarrow \left(X_2, \Tau_2\right)$ is open and bijective then
+	$f^{-1}: \left(X_2, \Tau_2\right) \rightarrow \left(X_1, \Tau_1\right)$ is continuous.
+\end{lemma}
+\begin{proof}
+	For $f^{-1}$ to be continuous we want that $U \in \Tau_1 \implies \left(f^{-1}\right)^{-1}(U) \in \Tau_2$.\\
+	Since $f$ is bijective $ \left(f^{-1}\right)^{-1}(U) \in \Tau_2 =  f(U) \in \Tau_2$. Notice that what we want
+	is true because $f$ is open.
+\end{proof}
+\begin{remark}
+	By \autoref{thm:bi+oimpliescont}, if $f$ itself is also continuous then $f$ is a homeomorphism.
+\end{remark}
+\end{definition}
+\end{document}
+

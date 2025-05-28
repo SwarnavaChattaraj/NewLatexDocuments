@@ -3,8 +3,8 @@
 \usepackage{amsmath}    % For math formatting
 \usepackage{xcolor}     % Ensure xcolor is available (often needed)
 
-\title{Sample Document with \texttt{evan.sty} Colors}
-\author{Your Name}
+\title{Introduction to Polynomials}
+\author{Swarnava Chattaraj}
 \date{\today}
 
 \begin{document}
@@ -16,5 +16,60 @@
 For any non-negative integer \( n \),
 \[ 2^n = \sum_{i = 0}^{n} \binom{n}{i} \]
 \end{theorem}
-
+\newpage
+\begin{example}
+Let $f(x) = x^2 + 6x + c, \forall\ x \in \RR, c \in \RR$
+Find the value of $c$ for which $f(f(x))$ has 3
+distinct real roots.
+\end{example}
+\begin{proof}[Solution]
+Notice that $deg\left(f(f(x))\right) = 4$. The condition
+wants $f(f(x))$ to have only 3 distinct real root, so
+the fourth root cannot be a complex root $($Recall that
+complex roots occur in pairs$)$, hence it must be a
+repeated root.\\
+Suppose $f(f(x))$ the three real distinct roots be
+$\alpha_1, \alpha_2, \alpha_3$, let the roots of $f(x)$
+be $r_1, r_2$.
+Then we can say that \[
+	f : \{\alpha_1, \alpha_2, \alpha_3\}
+\rightarrow \{r_1, r_2\}.
+\]
+Since $f$ is a quadratic polynomial, hence $f(x) = t$, 
+can have at most solutions.\\
+So if $r_1 = r_2$, and $f$ maps three numbers to a 
+single number, then by \\ \textbf{Pigeon Hole Principle}
+one of them is repeating.\\
+The other case is $r_1$ and $r_2$ are distinct,
+\begin{align*}
+	f &: \{\alpha_{i_1}, \alpha_{i_2}\} \rightarrow
+ \{r_{j_1}\}\\
+	f &: \{\alpha_{i_3}\} \rightarrow \{r_{j_2}\}
+\end{align*}
+such that there exists some permutation maps
+\begin{align*}
+	\sigma_1&: \{i_1,i_2,i_3\} \rightarrow \{1,2,3\}
+	\\
+	\sigma_2&: \{j_1,j_2\} \rightarrow \{1,2\}
+\end{align*}
+WLOG, we can set $\sigma_1 \coloneq 1$ and
+$\sigma_2 \coloneq 1$ or in other words we can set the permutation maps to be the identity maps.\\
+So the following claims hold true:
+\begin{align*}
+	f(x) &= r_2 \text{ $($have double root$)$}\\
+	f(x) &= r_1 \text{ $($have 2 distinct root$)$}
+\end{align*}
+Now if $f(x) = r_2$ has a double root then 
+$g(x) \coloneq f(x) - r_2$ is a square polynomial.\\
+Inferring from the structure of $(ax)^2 + 2(a)(b)x + b^2
+$, we can say that \\$g(x) = x^2 + 6x + (c-r_1) =(x - 3)^2
+$.\\
+Now $(c - r_1) = 9 \implies r_1 = c_1 - 9$. Substitute $r_1 = c_1 - 9$ in the equation $f(r_1) = 0$ and find the
+value of $c$. If there are multiple values of $c$, check
+which works.\\
+\textbf{Caution}, there are two ways find $f(x)$ for
+both the value of $c$, compute $f(f(x))$ and see if they
+have 3 distinct real roots or you can be clever about it
+.
+\end{proof}
 \end{document}

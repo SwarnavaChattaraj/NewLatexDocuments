@@ -1,0 +1,273 @@
+\documentclass{scrartcl} % KOMA-Script class for automatic colors
+\usepackage[sexy]{evan} % Load evan.sty with 'sexy' option
+\usepackage{amsmath}    % For math formatting
+\usepackage{xcolor}     % Ensure xcolor is available (often needed)
+
+\title{Intrdocutory Calculus}
+\author{Swarnava Chattaraj}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Introductory Problems} 
+\begin{example}
+	Let $f: [0,1] \rightarrow \RR$, be a function with the following
+	2 properties:
+	\begin{itemize}
+		\item $f(x^2) = f(x)^2$
+		\item $f(0) \neq 0$
+	\end{itemize}
+	Then show that $f$ is unique and find $f$.
+\end{example}
+\begin{proof}[Solution]
+Put $x = 1$, to get that $f(1) = 1$.\\
+Now put $x = t > 0$, 
+\[
+	f(t^2) = f(t)^2
+\]
+Again if we put $x = t^{\frac{1}{2}}$,
+\[
+	f(t)  = f(t^{\frac{1}{2}})^2
+\]
+
+So to calculate $f(t^2)$ is we need $f(t)$ and the to get $f(t)$ we need $f(t^{\frac{1}{2}})$ and the sequence go so on.\\
+Note that\\ $\lim\limits_{k \rightarrow \infty} t^{\frac{1}{2k}} = t^{\lim\limits_{k \rightarrow \infty} \frac{1}{2k}} $ [since exponentials are continious functions.]\\
+$= t^0 = 1$.
+\\
+So for $t > 0$ we have $1 = f(t^2) = f(t) = f(t^{\frac{1}{2}}) = \cdots$.\\
+And for $t = 0$ also we also have $f(0^2) = f(0)^2 = 1$.\\
+So $\boxed{f(x) = 1, \ \forall\ x \in [0,1]}$.
+\end{proof}
+\newpage
+\begin{example}[Putnam B5, 2006]
+	For a continious function $f: [0,1] \rightarrow \RR$. Consider the following two integrals : \\
+	Let $I(f) \coloneq \int\limits_0^1 x^2f(x)dx$
+	and $J(f) \coloneq \int\limits_0^1 x(f(x))^2dx$.
+\\	Find the maximum value of $I(f) - J(f)$.
+
+\end{example}
+\begin{proof}[Solution]
+	Well to begin with one should try inequalities and notably \textbf{Cacuhy-Swartz}. But alas in this particular problem it doesn't seem to work.\\
+	The next idea feels almost pulling a rabbit out of the hat, something  I completely hate, nevertheless it is a good idea. To begin with consider the following:
+	\[
+		\left(f(x) - \dfrac{x}{2}\right)^2 = f(x)^2 - 2f(x)\dfrac{x}{2} + \dfrac{x^2}{4}
+	\]
+	Well if you look carefully we get 2 things one is $f(x)^2$ and the other is $xf(x)$. The only thing missing from the two terms is a $x$. So multiplying it to $\left(f(x) - \dfrac{x}{2}\right)^2$ we get 
+	\[
+		x\left(f(x) - \dfrac{x}{2}\right)^2 = xf(x)^2 - x^2f(x) + \dfrac{x^3}{4}
+	\]
+	Ok what does that do? Well what are we trying to maximize:
+	\[
+		I(f) - J(f) = \int\limits_0^1
+		\left(x^2f(x) - x(f(x))^2\right) dx
+		\]
+
+And we can write that down as the following:
+\[
+	I(f) - J(f) = \int\limits_0^1 \dfrac{x^
+	3}{4} - x\left(f(x) - \dfrac{x}{2}\right)^2 dx
+\]
+Now $\left(f(x) - \dfrac{x}{2}\right)^2 \geq 0$
+and $x \in [0,1]$.So we are always subtracting
+at least positive term from $\dfrac{x^3}{4}$
+So it is better if we always just subtract $0$.
+Hence we conclude $\boxed{f(x) = \dfrac{x}{2}}$.
+Now calculating the minimum value of $I(f) - J(f)$ we get the ans as $\boxed{\dfrac{1}{16}}$.
+\end{proof}
+
+\newpage
+\begin{example}[CMI A6, 2020]
+	Suppose $a, b \geq 0 $, show that 
+	\[
+		\tan^{-1} a + \tan^{-1} b \leq 2\tan^{-1}\dfrac{a+b}{2}
+	\]
+\end{example}
+\begin{proof}[Solution]
+	Recall the fact if $f$ is a concave between $[a,b]$ then for any $\lambda \in
+	[0,1]$, the following inequality holds true,
+	\[
+		f\left(\lambda a + \left(1 - \lambda b\right)\right) \geq \lambda f(a)
+		+ (1-\lambda)f(b)
+	\]
+	Now since $f(x) = \tan^{-1} x$ is differentiable, to check if it is concave 
+	just see that is $f''(x) < 0, \ \forall\ x \in [a,b]$. Once you have checked that, 
+	all that is left to do is set $\lambda  = \dfrac{1}{2}$.
+\end{proof}
+
+\begin{example}[CMI A7, 2014]
+Let $f(x) \coloneq \left(x - a\right)\left(x-b\right)^3\left(x-c\right)^4\left(x-d\right)^7$, where $a < b < c < d$. Find how many roots does $f'(x)$ have.
+\end{example}
+\begin{proof}[Solution]
+Well this question is presented here to check 2 things. Let $f(x)$ be a polynomial and let $k \in \NN, k > 1$ then,
+\begin{itemize}
+	\item if $\left(x - a\right)^k \bigm| f(x)$ then $\left(x - a\right)^{k -
+		1} \bigm| f'(x)$
+	\item Use \textbf{Rolles Theorem} to show that if $a$ and $b$ are roots of $
+		f(x)$ then $\exists\ \alpha \in (a,b)$ such that $f'(\alpha) = 0$.
+
+\end{itemize}
+
+\end{proof}
+\begin{example}[CMI B4, 2012]
+Define 
+\[
+	x \coloneq \sum_{i = 1}^10 \dfrac{1}{10\sqrt{3}}\dfrac{1}{1 + \left(\frac{i}{10
+	\sqrt{3}}\right)^2}
+\]
+\[
+	y \coloneq \sum_{i = 0}^9\dfrac{1}{10\sqrt{3}}\dfrac{1}{1 + \left(\frac{i}{10
+	\sqrt{3}}\right)^2}
+\]
+Show the following inequalities hold true:
+\begin{itemize}
+	\item $x < \frac{\pi}{6} < y$
+	\item $\frac{x + y }{2} < \frac{\pi}{6}$
+\end{itemize}
+\end{example}
+\newpage
+\begin{example}
+
+
+Let $f : \RR \rightarrow \RR$, be a twice differentiable function. Let $x,y \in \RR$
+,
+\[
+	f'(x) - f'(y) \leq 3\mid x - y\mid
+\]
+Show that :
+\begin{itemize}
+	\item $\mid f(x) - f(y) - f'(y)(x - y)\mid \ \leq 1.5\left(x-y\right)^2$ 
+	\item Find the minimum and maximum value of $f''(x)$.
+\end{itemize}
+
+\end{example}
+\begin{proof}[Solution]
+This is not a correct solution and needs to be corrected $f'(x) - f'(y)\ \leq 3\mid x - y\mid \implies 	\mid f'(y) - f'(x)\mid \ \leq 3
+	\mid x - y\mid$ \ \ (1) \\
+Let $x \leq y$, then $y = x + t$ for some $t \in \RR$. Now let $h \in \RR$ such that
+$x \leq x + h \leq x + t = y$.\\
+So the following inequality also hold true for all $h$,
+\[
+\mid f'(y) - f'(x + h) \mid \leq 3 \mid 
+\]
+
+And now we do some sorcery, so tighten you seat belts:
+\begin{align*}
+	\int_0^t \mid f'(y) - f'(x)\mid dh \ &\leq \int_0^t 3\mid y - x\mid dh \\
+	\implies \Bigg| \int_0^t \left(f'(y) - f'(x)\right) dh \Bigg|\leq \int_0^t
+	\mid f'(y) - f'(x)\mid 
+	dh &\leq \int_0^t 3\mid y - x\mid dh \\
+	\implies \Bigg| \int_0^t f'(y) dh - \int_0^t f'(x) dh \Bigg| &\leq
+	\int_0^t 3\mid y - x\mid dh 
+\end{align*}
+Now we substitute $y - x = t$ and equivalently in place of $f'(x)$ use $f'(y - l)$
+where $l$ is the same as defined earlier,
+\begin{align*}
+	\Bigg| \int_0^t f'(y) dt - \int_0^t f'(x + h) dh \Bigg| &= 
+	\Bigg|f'(y)(y-x) - f(y) + f(x)  \Bigg| \\
+	\implies \Bigg| f(x) - f(y) - f'(y)(x-y)  \Bigg| &\leq 3\int_0^t t dt \\
+		\iff \Bigg| f(x) - f(y) - f'(y)(x-y)  \Bigg|&\leq 1.5t^2
+\end{align*}
+Now when $x > y$ the only change is the following, in place of $\mid f'(y) - f'(x)
+\mid$ reverse it, and then carry out the same procedure.
+\\
+The second part is trivial
+\[
+	\lim_{h \rightarrow 0} \dfrac{f'(x+h) - f'(x)}{h} = f''(x) \textbf{ [when 
+	the double derivative exists]}
+\]
+And from our given property we know,
+\[
+	\Bigg|\dfrac{f'(x) - f'(y)}{x - y} \Bigg| \leq 3
+\]
+So just assign $x \rightarrow x + h$ and $y \rightarrow x$ and then it is trivial to 
+show that the maximum and minimum value of $f''(x)$ is $\boxed{3, -3}$, respectively.
+\end{proof}
+\begin{example}[Stanford Math Tournament, 2024]
+If $f(x)$ is a non negative differentiable funtion defined over the positive real
+numbers,
+\[
+	f'(x) = 2x^{-1}f(x) + x^2\sqrt{f(x)}
+\]
+Given the value of $f(1) = \frac{25}{16}$. Find the value of $f(2)$.
+\end{example}
+\begin{proof}[Solution]
+The first thing that will excite you is dividing by $f(x)$ and you will get 
+$\ln(f(x))$ on the L.H.S when you integrate it, but you will quickly realize that 
+there is a $\sqrt{f(x)}$
+which is quite difficult to deal with. So is the idea a waste? Not quite.\\
+Consider this, instead of dividing by $f(x)$, divide by $2\sqrt{f(x)}$,
+\[
+	\dfrac{f'(x)}{2\sqrt{f(x)}} - \dfrac{\sqrt{f(x)}}{x} = \dfrac{x^2}{2}
+\]
+Now relabel the equation with $ q(x) \coloneq \sqrt{f(x)} $, 
+\[
+	q'(x) - \dfrac{q(x)}{x} = \dfrac{x^2}{2} \ \ (1) 
+\]
+Now this form still doesn't help, but it can provide insight, 
+\[
+	\left(\dfrac{q(x)}{x}\right)' = \dfrac{q'(x)x - q(x)}{x^2} =
+	\dfrac{q'(x)}{x} - \dfrac{q(x)}{x^2}
+\]
+So divide the equation in $(1)$ by x on both sides, 
+\begin{align*}
+	\dfrac{q'(x)}{x} - \dfrac{q(x)}{x^2} &= \dfrac{x}{2} \\
+	\left(\dfrac{q(x)}{x}\right)' &= \dfrac{x}{2}
+\end{align*}
+Now intgrate on both sides, and then use the condition of $f(1) = \frac{25}{16}$, to find the integration constant.
+\end{proof}
+\newpage
+
+\section{Integration Techniques}
+\begin{example}[CMI B3, 2019]
+Evaluate the Integral in terms of $m$
+\[
+	\int_0^\infty \dfrac{1}{\left(1+x^2\right)^{m+1}}dx
+\]
+\end{example}
+\begin{proof}[Solution]
+Consider the subsitution, $x = \tan\theta$ then
+\[
+	\int_0^{\frac{\pi}{2}} \dfrac{\sec^2\theta}{\left(\sec\theta\right)^{2m + 2}}d\theta
+\]
+Then integral boils down to the following,
+\[
+	\int_0^{\frac{\pi}{2}}  \left(\cos^2\theta\right)^m d\theta = \int_0^{\frac{\pi}{2}}\cos^{2m - 1}\theta \cos\theta d\theta 
+\]
+Now we will apply integration by parts,
+\[
+	\int_0^{\frac{\pi}{2}}\cos^{2m - 1}\theta \cos\theta d\theta  = \cos^{2m - 1}
+	\theta \sin\theta\bigg|_0^\frac{\pi}{2} +\int_0^{\frac{\pi}{2}} \left(2m - 1
+	\right)\cos^{2m-2}\theta\sin^2\theta d\theta
+\]
+Now $\cos^{2m - 1}\theta\sin\theta\bigg|_0^\frac{\pi}{2} = 0$. So,
+\[
+	\left(2m - 1\right)\int_0^{\frac{\pi}{2}} \cos^{2m - 2}\theta\sin^2\theta d\theta = (2m - 1)\int_0^{\frac{
+	\pi}{2}} \cos^{2m - 2}\theta\left(1 - \cos^2\theta\right)d\theta \ \ \ (1) 
+\]
+Now we will set up a recurrence relation:
+\[
+	I_m \coloneq \int_0^{\frac{\pi}{2}} \cos^{2m}\theta d\theta
+\]
+So stitching all together using $(1)$ we have:
+\[
+	I_m = \left(2m - 1\right)\left(I_{m - 1} + I_m \right)
+\]
+So from the recurrence relation we have $\boxed{\dfrac{I_m}{I_{m - 1}} = \dfrac{2m - 
+1}{2m}}$. The left is rest as an excercise to the reader.
+\end{proof}
+\begin{example}[SMT Calculus, 2024]
+Evaluate 
+\[
+	\int_0^{2020} f^{-1}(x) dx
+\]
+where it is given that $f(x) = \int_0^x e^{-t^2}dx$ 
+
+\end{example}
+
+
+
+
+\end{document}
+

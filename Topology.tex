@@ -107,10 +107,41 @@ defined as,
 defines a topology on $X$. Generally $\left(X, \Tau(d)
 	\right)$ will be called the topological space
 associated with metric $d$ and $\Tau(d)$ as the topology
-associated with metric $d$. Such topology that arrise
+associated with metric $d$. Such topology that arise
 from a metric are called \textbf{Metric Topology} or 
 \textbf{Metrizable Topology}.
 \end{theorem}
+\begin{remark}
+Consider $\left(\RR^n, \Tau(d_2)\right)$. This is referred as the \textbf{n-dimensional euclidean space with its usual
+topology}. It has more interesting properties which we will discover as we go along and by $d_2$ we actually mean the
+\textbf{euclidean metric}.
+\end{remark}
+\begin{lemma}
+	Consider $\left(\RR^n, \Tau(d_2)\right)$. Let $\left(a,b\right) \coloneq \{x \in \RR : a < x < b \}$. 
+	Then, 
+\[
+	\mathcal{K} \coloneq \prod\limits_{i=1}^n \left(a_i, b_i\right) \in \Tau(d_2).
+\]
+\end{lemma}
+\begin{proof}
+	The idea is to show that for every point $x \in \mathcal{K}$, there is some open ball around $x$
+	the that is contained in $\mathcal{K}$. 
+Let $x = \left(x_1,\cdots,x_n\right) \in \mathcal{K}$ then $a_i < x_i < b_i$.
+Here we define,
+\[
+	\delta_i \coloneq \min_i \{|x_i - a_i|, |x_i - b_i|\}
+\]
+And then we choose our radius $r'$ to be,
+\[
+	r'_x \coloneq \dfrac{\min\limits_i\delta_i}{\sqrt{n}}
+\]
+Note that the choice of re-scaling constant $\sqrt{n}$ is specific to the choice of metric, which in our case is $d_2$. Now take a ball $B_{r'}$, it is easy to verify that $B_{r'_x} \subset \mathcal{K}$.
+We conclude our argument as follows,
+\[
+   \mathcal{K} = \bigcup\limits_{x \in \mathcal{K}} B_{r'_x}(x) \in \Tau(d_2)
+\]
+The lemma is true for any other metric $d$, except one would have to take care of the re-scaling factor in the proof.
+\end{proof}
 \begin{example}[Discrete and Indiscrete Topology]
 	\label{ex:di}
 Let $X$ be any set. Let $\Tau = \sI \coloneq \{\emptyset
@@ -439,8 +470,62 @@ We can similarly say $f$ is a closed mapping if
 	is true because $f$ is open.
 \end{proof}
 \begin{remark}
-	By \autoref{thm:bi+oimpliescont}, if $f$ itself is also continuous then $f$ is a homeomorphism.
+	Extending \autoref{thm:bi+oimpliescont}, if $f$ itself is also continuous then $f$ is a \\homeomorphism.
 \end{remark}
 \end{definition}
+\subsection{Metric Specific Notions of Equivalence}
+\begin{definition}
+We say two metric spaces $\left(X_i, d_i\right),\ i = 1,2$ are \textbf{topologically} \\ \textbf{equivalent}, if
+	the underlying topological spaces $\left(X_i, \Tau(d_i)\right),\ i = 1,2$ are of the
+	same homeomorphism type.
+\end{definition}
+\begin{definition}\label{def:similar}
+	We say two metric space $\left(X_i, d_i\right),\ i = 1,2$ are \textbf{similar} if there is a 
+	bijection $f: (X_1,d_1) \rightarrow (X_2,x_2)$ and it satisfies the following inequality, 
+	\[
+		c_1d_1(x,y) \leq d_2(f(x),f(y)) \leq c_2d_1(x,y) \ \forall\ x,y \in X_1
+	\]
+where $c_1, c_2$ be two positive real numbers.
+\end{definition}
+\begin{definition}
+	Extending \autoref{def:similar}, if $c_1 = c_2 = 1$ then $\left(X_i, d_i\right), \forall\ i = 1,2$ are
+	\textbf{isometric}. In our notes we will refer to such a $f:(X_1, d_1) \rightarrow (X_2, d_2)$ as
+	an \textbf{isometry}.
+\end{definition}
+\begin{claim}\label{clm:3.20}
+	$f$ in \autoref{def:similar} is a homeomorphsim between the underlying topology $\left(X_i, \Tau(d_i)\right),
+\forall\ i = 1,2$.  
+\end{claim}
+\begin{proof}
+So we want to show that $f$ is continuous and for that
+we need that given any $x \in X_1, \ \forall\
+\epsilon > 0, \ \exists\ \delta > 0 \  s.t$,
+\[
+	d_1(x,y) < \delta \implies
+	d_2(f(x),f(y)) < \epsilon
+\]
+Which is trivial, for any given $\epsilon > 0$
+just take 
+$\delta = \dfrac{\epsilon}{c_2}$ and $ d_1(x,y) < \delta
+$ then,
+\[
+d_2(f(x), f(y)) \leq c_2d_1(x,y) < c_2\delta = \epsilon
+\]
+Since $f$ is bijective it makes sense to talk about 
+inverse at every point, so a similar argument can be 
+made. Hence $f$ is a homeomorphism.
+\end{proof}
+\begin{remark}
+	\autoref{clm:3.20} show that similarity is an 
+	equivalence relation. Also
+	\[
+		\textbf{isometry} \implies 
+		\textbf{similarity} \implies
+		\textbf{topological equivalence}.
+        \]
+\end{remark}
+
+
+
 \end{document}
 

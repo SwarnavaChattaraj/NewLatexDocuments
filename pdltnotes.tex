@@ -1,0 +1,232 @@
+\documentclass{scrartcl} % KOMA-Script class for automatic colors
+\usepackage[sexy]{evan} % Load evan.sty with "sexy" option
+\usepackage{amsmath}    % For math formatting
+\usepackage{xcolor}     % Ensure xcolor is available
+\usepackage{mathtools}
+\title{Principles of Deep Learning Theory Notes}
+\author{Swarnava Chattaraj}
+\date{\today}
+\numberwithin{equation}{subsection}  % Resets equation counter per subsection
+\begin{document}
+
+\maketitle
+
+\section{Gaussian Integrals}
+\subsection{Single Variable Gaussian Integrals}
+We urge that the reader to make themselves familiar with the following notions of \textbf{Gaussian Integrals}:
+\begin{itemize}
+	\item $\displaystyle I_K \coloneqq \int\limits_{-\infty}^{\infty} e^{-\frac{z^2}{2K}} \,\mathrm{d}z = 
+		\sqrt{2\pi K}$
+\end{itemize}
+From $I_K$ we could generalize it further by re-centering the \textbf{bell-curve} and from there defining the
+Gaussian probability distribution,
+\[
+	p(z) = \dfrac{1}{\sqrt{2\pi K}}e^{-\frac{(z - s)^2}{2K}}, \ \ \mathbb{E}(z) = s, \ \ Var(z) = K.
+\]
+Now recall the definition of expected value of a function of the random variable $z$
+\begin{equation}
+	\mathbb{E}[O(z)] = \int\limits_{-\infty}^{\infty} p(z)O(z)\mathrm{d}z
+\end{equation}
+A special class of expectation values also called \textbf{moments}
+\begin{equation}
+	\mathbb{E}[z^m] = \int\limits_{-\infty}^{\infty} p(z)z^m\mathrm{d}z
+\end{equation}
+Note that if $m$ is odd then the integral evaluates to $0$.
+\begin{equation}
+	I_{K,m} \coloneqq  \int\limits_{-\infty}^{\infty} \dfrac{1}{\sqrt{2\pi K}}e^{-\frac{(z - s)^2}{2K}}
+	z^m\mathrm{d}z	
+\end{equation}
+The following is well known as the \textbf{Wick's Theorem},
+\begin{equation}
+	\mathbb{E}[z^{2m}] = \dfrac{I_{K,m}}{\sqrt{2 \pi K}} = K^m(2m-1)!!
+\end{equation}
+\newpage
+
+\subsection{Bivariate and Multivariate Gaussian Integrals}
+Recall we had in the single variable Gaussian Integral the following function,
+\begin{equation}
+	\exp\left[-\frac{z^2}{2\sigma^2}\right]
+\end{equation}
+So a general extension for two variable or bivariate Gaussian Integral would be,
+\begin{equation}
+	\exp\left[-\frac{1}{2[1 - \rho^2]}\left(\frac{z_1^2}{\sigma_1^2} - \frac{2\rho z_1z_2}{\sigma_1\sigma_2} +
+	\frac{z_2^2}{\sigma_2^2}\right)\right]
+\end{equation}
+Now if we write it in a compact form then,
+\begin{equation}
+	\exp\left[-\frac{1}{2}\textbf{z}^TK^{-1}\textbf{z}\right]
+\end{equation}
+where $\textbf{z} = [z_1 \ z_2]^\top$ and the \textbf{covariance matrix} $K$,
+\[
+\begin{array}{ll}
+	K = \begin{pmatrix}
+		\sigma_1^2 & \rho\sigma_1\sigma_2 \\
+		\rho\sigma_1\sigma_2 & \sigma_2^2 
+	\end{pmatrix}, & 
+	K^{-1} = \dfrac{1}{1 - \rho^2}\begin{pmatrix}
+		\frac{1}{\sigma_1^2} & \frac{\rho}{\sigma_1 \sigma_2} \\
+		\frac{\rho}{\sigma_1 \sigma_2} & \frac{1}{\sigma_2^2}
+	\end{pmatrix}
+\end{array}
+\]
+Some comments, if $\rho$ is $0$ then $z_i's$ are independent. To talk about the probability distribution properly
+we will restrict ourselves to the cases where $K$ has a full rank, also $K$ here is a $2$ by $2$ positive definite 
+symmetric matrix.
+Now this can be extended to $N$ variables.\\
+Now since we are following the book I want to clarify the notations used,
+\begin{equation}
+	\sum\limits_{\mu,\nu = 1}^N z_{\mu} (K^{-1})_{\mu \nu}z_{\nu} = 
+	\sum\limits_{\mu,\nu = 1}^N z_{\mu} K^{\mu\nu}z_{\nu} = \textbf{z}^\top K^{-1}\textbf{z}
+\end{equation}
+Now I will recall the \textbf{Spectral Theorem}, that if $K$ is a real symmetric matrix the there exists
+orthogonal matrix $O$ such that,
+\begin{equation}
+	OKO^\top = \boldsymbol{\land} \coloneqq diag(\lambda_1,\cdots,\lambda_n)
+\end{equation}
+\begin{equation}
+	O(K^{-1})O^\top = diag(\lambda_1^{-1},\cdots,\lambda_n^{-1}) =diag(\lambda_1,\cdots,\lambda_n)^{-1} = 
+	\boldsymbol{\land^{-1}}
+\end{equation}
+Bear with me for one more computation,
+\begin{align}
+	\textbf{z}^\top(O^\top O) K^{-1}(O^\top O)\textbf{z} &=
+         (Oz)^\top(OK^{-1}O^\top)(Oz)\\
+							     &= (Oz)^\top (\boldsymbol{\land^{-1}})(Oz)\\
+			&= \sum\limits_{\mu = 1}^N \dfrac{(Oz)_{\mu}^2}{\lambda_{\mu}}
+\end{align}
+Now recall the fact or take it for granted that if $u_{\mu} = (Oz)_{\mu}$ then $\mathrm{d}u_{\mu} = 
+\mathrm{d}v_{\mu}$ then,
+\begin{equation}
+	I_K \coloneqq \int\limits_{-\infty}^{\infty}\exp\left[-\frac{1}{2}\sum\limits_{\mu,\nu = 1}^N z_{\mu} 
+	(K^{-1})_{\mu \nu}z_{\nu}\right]\mathrm{d}\textbf{z} =
+	\prod\limits_{i=1}^N\int\limits_{-\infty}^{\infty}\exp\left[-\frac{u_i^2}{2\lambda_i}\right]
+	\mathrm{d}u_i = \sqrt{|2\pi K|}
+\end{equation}
+\newpage
+So we can now define a completely general Multivariate Gaussian Distribution,
+\begin{equation}
+	p(z_1,\cdots, z_n, s) = p(\textbf{z},s) = \dfrac{1}{\sqrt{|2\pi K|}}
+	\exp\left[-\frac{1}{2}\sum\limits_{\mu, \nu = 1}^N(z-s)_{\mu}^\top K^{\mu \nu}(z - s)_{\nu}\right]
+\end{equation}
+where I have shifted the bell curve by $s$, so if $s=0$ we have our old zero-mean gaussian distribution.\\
+Now we are interested in the \textbf{moments} for the Multivariate Gaussian Distribution,
+\begin{equation}
+	\mathbb{E}[z_{\mu_1}\cdots z_{\mu_M}] = \int\limits_{-\infty}^{\infty}
+	p(\textbf{z},0)z_{\mu_1}\cdots z_{\mu_M} \mathrm{d}\textbf{z}
+\end{equation}
+where $\mu_1,\cdots,\mu_M$ are indexes, so if we are interested in $\mathbb{E}[z_t^k]$ then just take $m = k$ and
+$\mu_1 = \cdots = \mu_k = t$, this was to convince you of the extent generality we are interested in.
+It painfully difficult to directly find the above expectation directly 
+so we will do a work around. First lets simplify,
+\begin{equation}
+\mathbb{E}[z_{\mu_1}\cdots z_{\mu_M}] = \dfrac{I_{K,\left(\mu_1,\cdots,\mu_M\right)}}{I_K}
+\end{equation}
+where we have defined
+\[
+	I_{K,\left(\mu_1,\cdots,\mu_m\right)} =\int\limits_{-\infty}^{\infty} 
+	\exp\left[-\frac{1}{2}\sum\limits_{\mu, \nu = 1}^N z_{\mu} K^{\mu \nu}z_{\nu}\right]
+	z_{\mu_1}\cdots z_{\mu_M}\mathrm{d}\textbf{z}
+\]
+If you don't see it yet, we are trying to derive the \textbf{Wick's Theorem} for Multivariate Gaussian case. We begin
+by setting up the following term,
+\[
+	Z_{K, J} \coloneqq \int \exp\left[-\dfrac{1}{2}\sum\limits_{\mu,\nu = 1}^N z_{\mu}K^{\mu \nu}z_{\nu} 
+	 + \sum\limits_{\mu = 1}^N J^{\mu}z_{\mu} \right]  
+\]
+I will use a fact that one can just take for granted here, 
+\begin{equation}
+	\dfrac{\partial}{\partial y} \int f(x,y) \mathrm{d}x = \int \dfrac{\partial f(x,y)}{\partial y} \mathrm{d}x
+\end{equation}
+There are certain condition that need to be checked but I assure you that when it will be used in our notes, it will be
+fine. Interested people should know that it is what we call as the \textbf{Leibniz' Rule of Differentiation under 
+Integration}, check that the condition required for it work hold true for our particular function.
+Using above theorem although stated informally we can conclude that, 
+\begin{equation}
+	\left. \left[\dfrac{\partial}{\partial J^{\mu_M}}\cdots\dfrac{\partial}{\partial J^{\mu_1}}Z_{K,J}\right]
+		\right|_{J=0} 
+			= I_{K,\left(\mu_1,\cdots,\mu_M\right)}
+\end{equation}
+where $J = \left(J^{\mu_1}\cdots J^{\mu_M}\right)$. The working is actually trivial except it looks monstrous, don't get 
+afraid because \textbf{shit is going to get real!}.
+\newpage
+A little digression from what we are doing,
+\[
+	f(x) = -\dfrac{1}{2}ax^2 + bx
+\]
+What we want here is we want a term that has $x$ and another which doesn't, so how do we do it?
+\[
+	f'(x) = -ax + b \left(\text{ set it to } 0\right).
+\]
+Now here is a sly of hand,
+\[
+	f(x) = \dfrac{1}{2}a\left(x - \dfrac{b}{a}\right)^2 + \dfrac{b^2}{2a}
+\]
+Now I will do something and people will still call it \textbf{magic},
+\begin{align}
+-\dfrac{1}{2}\sum\limits_{\mu,\nu = 1}^N z_{\mu}K^{\mu \nu}z_{\nu} 
++ \sum\limits_{\mu = 1}^M J^{\mu}z_{\mu}  & =-\dfrac{1}{2}z^\top K^{-1} z + J^\top z
+\end{align}
+and this time my shift will be by $KJ$.
+\begin{align}
+	-\dfrac{1}{2}(z - KJ)^\top K^{-1} (z - KJ) + \dfrac{1}{2}J^\top KJ 
+\end{align}
+If it is not clear here are the steps I skipped, replace $z$ with $\left(z - z_0\right) + z_0$ where $z_0 = KJ$.
+If you do it correctly one term will cancel out. Now rename $z - KJ = w$
+\begin{align}
+	&-\dfrac{1}{2}(z - KJ)^\top K^{-1} (z - KJ) + \dfrac{1}{2}J^\top KJ\\
+	&= -\dfrac{1}{2}w^\top K^{-1}w + \dfrac{1}{2}J^\top KJ\\
+	&= -\dfrac{1}{2}\sum\limits_{\mu,\nu = 1}^N w_{\mu}K^{\mu \nu}w_{\nu} + 
+	\dfrac{1}{2}\sum\limits_{\mu,\nu = 1}^N J^{\mu}K_{\mu \nu} J^{\nu} 
+\end{align}
+So if we replace all this stuff back to our $Z_{K,J}$ we have the following
+\begin{align}
+	Z_{K,J} &= \exp\left[
+	\dfrac{1}{2}\sum\limits_{\mu,\nu = 1}^N J^{\mu}K_{\mu \nu} J^{\nu}
+\right]\int -\dfrac{1}{2}\sum\limits_{\mu,\nu = 1}^N w_{\mu}K^{\mu \nu}w_{\nu} \mathrm{d}\textbf{w} \\
+		&= 
+		\sqrt{|2\pi K|}\exp\left(\dfrac{1}{2}\sum\limits_{\mu,\nu = 1}^N J^{\mu}K_{\mu \nu} J^{\nu}\right)
+\end{align}
+Now we can return to our initial goal which lead to all this mess, now for $M = 2m + 1$ the moment is odd which requires
+justification and is left for the reader, for $M = 2m$ we get a nice form,
+\begin{align*}
+	\mathbb{E}[z_{\mu_1}\cdots z_{\mu_{2m}}] &= \dfrac{I_{K,(\mu_1,\cdots,\mu_{2m})}}{I_K}\\
+						 &= 
+\left. \left[\dfrac{\partial}{\partial J^{\mu_{2m}}}\cdots\dfrac{\partial}{\partial J^{\mu_1}}\exp\left(\dfrac{1}{2}
+		\sum\limits_{\mu,\nu = 1}^N J^{\mu}K_{\mu \nu} J^{\nu}\right)\right]\right|_{J=0}\\
+\end{align*}
+\newpage
+\begin{align*}
+\left. \left[\dfrac{\partial}{\partial J^{\mu_{2m}}}\cdots\dfrac{\partial}{\partial J^{\mu_1}}\exp\left(\dfrac{1}{2}
+		\sum\limits_{\mu,\nu = 1}^N J^{\mu}K_{\mu \nu} J^{\nu}\right)\right]\right|_{J=0}
+\end{align*}
+Well here is a step that simplifies the handling of so many differentiations.\\
+Use \textbf{Taylor's Series} expansion for
+the exponents,
+\begin{equation}
+	\exp\left(\dfrac{1}{2}\sum\limits_{\mu,\nu = 1}^N J^{\mu}K_{\mu \nu} J^{\nu}\right) =
+	\sum\limits_{i = 0}^N \dfrac{1}{i!}
+	\left(\dfrac{1}{2}\sum\limits_{\mu,\nu = 1}^N J^{\mu}K_{\mu \nu} J^{\nu}\right)^i
+\end{equation}
+Now few comments to contemplate on, since each term in the infinite summation is another summation i claim the following
+\begin{itemize}
+	\item if $i < m$ and we differentiate those terms with respect to $J^{\mu_1},\cdots, J^{\mu_2m}$
+		then they will vanish.
+	\item if $i >m$ and we do the same, this time they do not vanish but when we substitute $J = 0$ at the end 
+		those summation becomes $0$.
+\end{itemize}
+Note i have said $i = m$ and not $2m$ because $J^{\mu}K_{\mu \nu} J^{\nu}$ is present so the $2$ will be adjusted there.\\
+If this is still confusing refer to the single variable proof of \textbf{Wick's Theorem} in the book. So now since
+it is settled that $\dfrac{1}{m!}\sum\limits_{\mu, \nu = 1}^N J^{\mu} K_{\mu \nu} J^{\nu}$ is the only term we need
+to worry about let us get back to the root of what we were doing,
+\begin{align}
+\mathbb{E}[z_{\mu_1}\cdots z_{\mu_{2m}}] &= \dfrac{I_{K,(\mu_1,\cdots,\mu_{2m})}}{I_K}\\
+						 &= 
+\left. \left[\dfrac{\partial}{\partial J^{\mu_{2m}}}\cdots\dfrac{\partial}{\partial J^{\mu_1}}\exp\left(\dfrac{1}{2}
+		\sum\limits_{\mu,\nu = 1}^N J^{\mu}K_{\mu \nu} J^{\nu}\right)\right]\right|_{J=0}\\
+		&=\left .\left[\dfrac{\partial}{\partial J^{\mu_{2m}}}\cdots\dfrac{\partial}{\partial J^{\mu_1}}
+			\left(\sum\limits_{\mu,\nu = 1}^N J^{\mu}K_{\mu \nu}J^{\nu}\right)^m\right]\right|_{J=0}
+\end{align}
+One comment is that you can drop the evaluation at $J = 0$ at the last line because anyways the result expression will
+be independent of $J^{\mu_i}$. Verify this from the examples given in the book.
+\end{document}
+

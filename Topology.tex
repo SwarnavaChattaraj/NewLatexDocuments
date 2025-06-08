@@ -441,7 +441,7 @@ continuous and strictly monotone is a homeomorphism.
 	The construction of above $\mathfrak{Top}$ is hopeless. We might provide an answer very later because it 
 	requires  decent group theory and even algebraic topology.
 \end{remark}
-\begin{definition}
+\begin{definition}\label{eqn:topological invariant}
 	A property $P$ is called a \textbf{topological property} or \textbf{topological invariant} if every 
 	homeomorphism preserves it, i.e if $f : \left(X_1, \Tau_1\right) \rightarrow \left(X_2, \Tau_2\right)$
 	be a homeomorphism then $\left(X_1, \Tau_1\right)$ satisfies $P$ iff $\left(X_2, \Tau_2\right)$. 
@@ -524,8 +524,51 @@ made. Hence $f$ is a homeomorphism.
 		\textbf{topological equivalence}.
         \]
 \end{remark}
-
-
-
+\begin{remark}
+	Let two similar metric spaces be $\left(X_1, d_1\right)$ and $\left(X_2, d_2\right)$ then a property
+	P is called similarity invariant if
+	\[
+		\text{P holds for } \left(X_1, d_1\right) \iff \text{ P hold for }\left(X_2, d_2\right).
+        \]
+\end{remark}
+\begin{definition}[Diameter and Bounded Sets]
+	Let $\left(X,d\right)$ be a metric space, we then define \textbf{diameter} of the set $X$, by $\delta(X,d)$ as
+	follows,
+		\[
+		\delta(X,d) \coloneqq \sup\{d(x,y) : x,y \in X\}
+		\]
+	We call the set $X$ bounded if $\delta(X) < \infty$. In that case we also call the metric $d$ a \textbf{bounded metric}. To emphasize there is
+	no restriction that the $\delta(X)$ cannot be $-\infty$, we actually define 
+	$\delta(\emptyset) \coloneqq -\infty$.
+\end{definition}
+\begin{example}
+Let $f :\left(X_1, d_1\right) \rightarrow \left(X_2, d_2\right)$ be an isometry then, 
+\[
+\{d_1(x,y) : x,y \in X_1\} = \{d_2(a,b) : a,b \in X_2\}
+\]
+induced by $\left(f,f\right):X_1\times X_1 \rightarrow X_2\times X_2$.\\
+\begin{proof}
+	$f$ is a bijection between $X_1$ and $X_2$ that implies $(f,f)$ is a bijection between $X_1\times X_1$ and
+	$X_2\times X_2$. Also $f$ is a isometry so $d_1(x,y) = d_2(f(x),f(y))$. Hence the two sets of distances are
+	identical when we consider the map $(f,f)$.
+\end{proof}
+From our above reasoning it follows that 
+\[
+\delta(X_1,d_1) = \delta(X_2,d_2)
+\]
+So diameter is a isometric-invariant property.
+\end{example}
+\begin{example}
+Let $d$ be a metric on some underlying set $X$. Now define a new metric $d'$ as follows,
+\[
+	d(x,y) = 2d'(x,y)
+\]
+Then consider the identity map $Id: (X,d) \rightarrow (X,d')$, then it is trivial to see that $(X,d)$ and $(X,d')$ are 
+similar. But now if we look at the diameter then 
+\[
+	\delta(X,d) = 2\delta(X,d')
+\]
+So we conclude that diameter is not a similar-invariant property.
+\end{example}
 \end{document}
 
